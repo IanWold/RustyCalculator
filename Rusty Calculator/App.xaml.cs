@@ -46,6 +46,7 @@ namespace Rusty_Calculator
 			if (Current.Windows[0].Visibility == Visibility.Collapsed)
 			{
 				Current.Windows[0].Visibility = Visibility.Visible;
+				Current.Windows[0].Activate();
 			}
 			else
 			{
