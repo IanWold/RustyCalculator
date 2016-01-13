@@ -66,9 +66,24 @@ namespace Rusty_Calculator
 			set { }
 		}
 
-		public Item(string _input)
+		private int id;
+		public int ID
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				id = value;
+				NotifyPropertyChanged("ID");
+			}
+		}
+
+		public Item(string _input, int _id)
 		{
 			input = _input;
+			id = _id;
 		}
 
 		private void NotifyPropertyChanged(string propertyName = "")

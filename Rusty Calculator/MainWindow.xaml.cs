@@ -22,20 +22,21 @@ namespace Rusty_Calculator
 			DataContext = App.MainItemList;
 		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			Visibility = Visibility.Collapsed;
+		}
+
 		private void NewTB_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Enter)
 			{
-				App.MainItemList.Add(new Item(NewTB.Text));
+				App.MainItemList.Add(NewTB.Text);
 				MainIC.Items.Refresh();
 
 				NewTB.Text = "";
 				NewTB.Focus();
 			}
-		}
-
-		private void MainSV_LayoutUpdated(object sender, EventArgs e)
-		{
 		}
 
 		private void MainSV_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -48,12 +49,14 @@ namespace Rusty_Calculator
 			var lines = (sender as TextBox).Text.Split(new char[] { '\r', '\n' });
 
 			var count = 0;
-			foreach (var l in lines)
+
+			for (int i = 0; i < lines.Length; i++)
 			{
-				if (l != "") count++;
+				if (i == lines.Length - 1) count++;
+				else if (lines[i] != "") count++;
 			}
 
-			(sender as TextBox).Height = 12 + (21 * count);
+			(sender as TextBox).Height = 12 + (21 * (count == 0 ? 1 : count));
 		}
 
 		private void InputTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -80,6 +83,35 @@ namespace Rusty_Calculator
 
 				isCtrlPressed = false;
 			}
+		}
+
+		private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ClickCount == 3)
+			{
+				(sender as TextBox).SelectAll();
+			}
+		}
+
+		private void HeaderTB_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			Visibility = Visibility.Collapsed;
+		}
+
+		private void DeleteItemMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var tag = (sender as MenuItem).Tag.ToString();
+
+			App.MainItemList.RemoveById(Convert.ToInt32(tag));
+			MainIC.Items.Refresh();
+
+			NewTB.Text = "";
+			NewTB.Focus();
+		}
+
+		private void CopyMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			Clipboard.SetText((sender as MenuItem).Tag.ToString());
 		}
 	}
 }
