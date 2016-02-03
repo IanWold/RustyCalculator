@@ -113,5 +113,10 @@ namespace Rusty_Calculator
 		{
 			Clipboard.SetText((sender as MenuItem).Tag.ToString());
 		}
+
+		private void Window_Activated(object sender, EventArgs e)
+		{
+			NewTB.Focus();
+		}
 	}
 }

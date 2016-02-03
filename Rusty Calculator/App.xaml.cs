@@ -62,12 +62,16 @@ namespace Rusty_Calculator
 			var contextMenu = new ContextMenu();
 
 			var menuOpen = new MenuItem("Rusty Calculator");
-			menuOpen.Click += (sender, e) => { Current.Windows[0].Visibility = Visibility.Visible; };
+			menuOpen.Click += (sender, e) => {
+				Current.Windows[0].Visibility = Visibility.Visible;
+				Current.Windows[0].Activate();
+			};
 
 			var menuDeleteAll = new MenuItem("Delete All");
 			menuDeleteAll.Click += (sender, e) => {
 				MainItemList.RemoveAll();
 				Current.Windows[0].Visibility = Visibility.Visible;
+				Current.Windows[0].Activate();
 			};
 
 			var menuExit = new MenuItem("Exit");
@@ -79,20 +83,17 @@ namespace Rusty_Calculator
 
 			nIcon.ContextMenu = contextMenu;
 
-			nIcon.Click += (sender, e) => { SwitchMainWindowVisibility(); };
-		}
-
-		private void SwitchMainWindowVisibility()
-		{
-			if (Current.Windows[0].Visibility == Visibility.Collapsed)
-			{
-				Current.Windows[0].Visibility = Visibility.Visible;
-				Current.Windows[0].Activate();
-			}
-			else
-			{
-				Current.Windows[0].Visibility = Visibility.Collapsed;
-			}
+			nIcon.Click += (sender, e) => {
+				if (Current.Windows[0].Visibility == Visibility.Collapsed)
+				{
+					Current.Windows[0].Visibility = Visibility.Visible;
+					Current.Windows[0].Activate();
+				}
+				else
+				{
+					Current.Windows[0].Visibility = Visibility.Collapsed;
+				}
+			};
 		}
 	}
 }

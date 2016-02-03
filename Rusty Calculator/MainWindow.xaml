@@ -20,7 +20,8 @@
         SnapsToDevicePixels="True"
         Icon="Icon.ico"
         Topmost="True"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Activated="Window_Activated">
 
     <Border Background="#EA000000" BorderBrush="Gainsboro" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom">
         <Grid>
